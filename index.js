@@ -15,12 +15,7 @@ const port = process.env.PORT || 5000;
 // 1) Middlewares
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.urlencoded({ extended: false })); // Form encoded data as body
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
