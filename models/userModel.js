@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "inActive",
+      default: "Active",
     },
   },
   {

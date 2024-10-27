@@ -14,16 +14,11 @@ const getProducts = asyncHandler(async (req, res) => {
 //@route /api/products
 //@access public
 const getProductsByCategory = asyncHandler(async (req, res) => {
+  console.log("params: ", req.params.category);
   const categoryParam = req.params.category;
-  const products = await Product.find({ category: categoryParam });
-  res.status(200).json({ products: products });
-});
-
-//@desc get all  Category
-//@route /api/products
-//@access public
-const getCategories = asyncHandler(async (req, res) => {
-  const products = await Product.find({},'name friends');
+  const products = await Product.find({
+    category: categoryParam,
+  });
   res.status(200).json({ products: products });
 });
 
@@ -40,7 +35,10 @@ const createProduct = asyncHandler(async (req, res) => {
     oldPrice,
     newPrice,
   } = req.body;
-  console.log(title);
+  console.log(oldPrice);
+  // const oldPriceNumber = Number(oldPrice);
+  // const newPriceNumber = Number(newPrice);
+  // console.log(oldPriceNumber);
   const createProduct = await Product.create({
     title,
     description,
@@ -78,19 +76,19 @@ const updateProduct = asyncHandler(async (req, res) => {
       new: true,
     }
   );
-  res
-    .status(200)
-    .json({
-      message: "Product updated successfully",
-      updatedProduct: updatedProduct,
-    });
+  res.status(200).json({
+    message: "Product updated successfully",
+    updatedProduct: updatedProduct,
+  });
 });
 
 //@desc delete a user
 //@route /api/contacts/id
 //@access public
 const deleteProduct = asyncHandler(async (req, res) => {
+  console.log(req.params.id);
   const product = await Product.findById(req.params.id);
+  console.log(product);
   if (!product) {
     throw new AppError("product not found", 404);
   }

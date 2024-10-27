@@ -14,22 +14,22 @@ const getUsers = asyncHandler(async (req, res) => {
 //@route /api/contacts
 //@access public
 const createUser = asyncHandler(async (req, res) => {
-  const { userId, name, userName, email, password, phone, address, status } =
+  const { firebaseUid, name, email, password, phone, photoUrl, status } =
     req.body;
-  console.log({ userId: userId });
   const createdUser = await User.create({
-    userId,
+    firebaseUid,
     name,
-    userName,
     email,
     password,
     phone,
-    address,
+    photoUrl,
     status,
   });
-  res
-    .status(201)
-    .json({ status: "success", message: "user created successfully", token });
+  res.status(201).json({
+    status: "success",
+    message: "user created successfully",
+    createdUser: createdUser,
+  });
 });
 
 //@desc get a user
